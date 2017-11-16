@@ -1,0 +1,54 @@
+<div class="page-header">
+  <h3>Bookmark #<%= @bookmark.id %></h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12 mb-2">
+    <dl class="dl-horizontal">
+      <dt>Dish</dt>
+      <dd>
+        <% if @bookmark.dish.present? %>
+          <a href="/dishes/<%= @bookmark.dish_id %>">
+            <%= @bookmark.dish.name %>
+          </a>
+        <% end %>
+      </dd>
+
+      <dt>Venue</dt>
+      <dd>
+        <% if @bookmark.venue.present? %>
+          <a href="/venues/<%= @bookmark.venue_id %>">
+            <%= @bookmark.venue.name %>
+          </a>
+        <% end %>
+      </dd>
+
+      <dt>User</dt>
+      <dd>
+        <% if @bookmark.user.present? %>
+          <a href="/users/<%= @bookmark.user_id %>">
+            <%= @bookmark.user.username %>
+          </a>
+        <% end %>
+      </dd>
+
+      <dt>Notes</dt>
+      <dd><%= @bookmark.notes %></dd>
+
+    </dl>
+
+    <div class="btn-group btn-group-justified">
+      <a href="/bookmarks" class="btn btn-primary">
+        Back
+      </a>
+      <% if current_user == @bookmark.user %>
+        <a href="/bookmarks/<%= @bookmark.id %>/edit" class="btn btn-warning">
+          Edit
+        </a>
+        <a href="/delete_bookmark/<%= @bookmark.id %>" class="btn btn-danger" rel="nofollow">
+          Delete
+        </a>
+      <% end %>
+    </div>
+  </div>
+</div>

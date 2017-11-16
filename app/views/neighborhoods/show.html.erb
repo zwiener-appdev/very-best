@@ -1,0 +1,94 @@
+<div class="page-header">
+  <h3>Neighborhood #<%= @neighborhood.id %></h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12 mb-2">
+    <dl class="dl-horizontal">
+      <dt>Name</dt>
+      <dd><%= @neighborhood.name %></dd>
+
+      <dt>City</dt>
+      <dd><%= @neighborhood.city %></dd>
+
+      <dt>State</dt>
+      <dd><%= @neighborhood.state %></dd>
+
+    </dl>
+
+    <div class="btn-group btn-group-justified">
+      <a href="/neighborhoods" class="btn btn-primary">
+        Back
+      </a>
+      <a href="/neighborhoods/<%= @neighborhood.id %>/edit" class="btn btn-warning">
+        Edit
+      </a>
+      <a href="/delete_neighborhood/<%= @neighborhood.id %>" class="btn btn-danger" rel="nofollow">
+        Delete
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- A Neighborhood has many venues -->
+
+<div class="row">
+  <div class="col-md-12">
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-info">
+        Venues
+      </li>
+
+      <% @neighborhood.venues.each do |venue| %>
+        <li class="list-group-item">
+          <a href="/venues/<%= venue.id %>">
+            <%= venue.name %>
+          </a>
+          <div class="btn-group btn-group-xs pull-right">
+            <a href="/venues/<%= venue.id %>" class="btn btn-primary">
+              <i class="fa fa-search-plus"></i>
+            </a>
+            <a href="/venues/<%= venue.id %>/edit" class="btn btn-warning">
+              <i class="fa fa-edit"></i>
+            </a>
+            <a href="/delete_venue/<%= venue.id %>" class="btn btn-danger" rel="nofollow">
+              <i class="fa fa-trash-o"></i>
+            </a>
+          </div>
+        </li>
+      <% end %>
+
+      <li class="list-group-item">
+        <form action="/create_venue" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for name -->
+      <div class="form-group">
+        <label for="name" class="control-label">
+          Name
+        </label>
+
+        <input type="text" id="name" name="name" placeholder="Name" class="form-control" value="">
+      </div>
+
+      <!-- Label and input for address -->
+      <div class="form-group">
+        <label for="address" class="control-label">
+          Address
+        </label>
+
+        <input type="text" id="address" name="address" placeholder="Address" class="form-control" value="">
+      </div>
+
+      <!-- Label and input for neighborhood_id -->
+      <input type="hidden" name="neighborhood_id" value="<%= @neighborhood.id %>">
+
+      <button class="btn btn-block btn-success">
+        Create Venue
+      </button>
+    </form>
+      </li>
+    </ul>
+  </div>
+</div>
