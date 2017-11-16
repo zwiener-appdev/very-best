@@ -85,7 +85,7 @@ feature "Dish Index Page:" do
     end
   end
 
-  scenario "user can add a new venue dished by name", points: 1 do
+  scenario "user can add a new venue", points: 1 do
     user = create(:user)
     login_as(user, :scope => :user)
     visit "/"
