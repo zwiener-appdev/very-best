@@ -1,28 +1,4 @@
 GIT
-  remote: git://github.com/firstdraft/firstdraft_generators.git
-  revision: 9405e70b3d5bf2215917c7d268baa07ab76386fd
-  specs:
-    firstdraft_generators (0.0.3)
-
-GIT
-  remote: git://github.com/firstdraft/grade_runner.git
-  revision: fbddabac089f98821b7d07d9ac957c836a05264b
-  specs:
-    grade_runner (0.0.1)
-
-GIT
-  remote: git://github.com/firstdraft/web_git.git
-  revision: 9ef7a0a888858f45d0bcb49fb990d96d00642884
-  specs:
-    web_git (0.0.1)
-      git_clone_url
-      jquery-rails
-      octicons_helper
-      tether-rails
-      turbolinks (~> 5)
-      tzinfo-data
-
-GIT
   remote: https://github.com/activeadmin/inherited_resources.git
   revision: 5d18499877852437f2c058747f07bc80e46557fc
   specs:
@@ -41,12 +17,28 @@ GIT
       rails
 
 GIT
-  remote: https://github.com/firstdraft/seed_dump.git
-  revision: 08707d80fa0d9776b2118fbdabd66f9548181e0a
+  remote: https://github.com/firstdraft/firstdraft_generators.git
+  revision: 9405e70b3d5bf2215917c7d268baa07ab76386fd
   specs:
-    seed_dump (3.2.4)
-      activerecord (>= 4)
-      activesupport (>= 4)
+    firstdraft_generators (0.0.3)
+
+GIT
+  remote: https://github.com/firstdraft/grade_runner.git
+  revision: fbddabac089f98821b7d07d9ac957c836a05264b
+  specs:
+    grade_runner (0.0.1)
+
+GIT
+  remote: https://github.com/firstdraft/web_git.git
+  revision: 9ef7a0a888858f45d0bcb49fb990d96d00642884
+  specs:
+    web_git (0.0.1)
+      git_clone_url
+      jquery-rails
+      octicons_helper
+      tether-rails
+      turbolinks (~> 5)
+      tzinfo-data
 
 GIT
   remote: https://github.com/raghubetina/starter_generators.git
@@ -258,7 +250,6 @@ GEM
     pry-rails (0.3.6)
       pry (>= 0.10.4)
     public_suffix (3.0.1)
-    puma (3.6.2)
     rack (2.0.1)
     rack-contrib (1.2.0)
       rack (>= 0.9.1)
@@ -410,13 +401,11 @@ DEPENDENCIES
   momentjs-rails (>= 2.9.0)
   pg
   pry-rails
-  puma (~> 3.0)
   rails (~> 5.0.0, >= 5.0.0.1)
   rails_12factor
   ransack
   rspec-rails
   sass-rails (~> 5.0)
-  seed_dump!
   spring
   spring-watcher-listen (~> 2.0.0)
   sqlite3
@@ -428,9 +417,6 @@ DEPENDENCIES
   web-console
   web_git!
   webmock
-
-RUBY VERSION
-   ruby 2.3.1p112
 
 BUNDLED WITH
    1.16.0

@@ -17,8 +17,7 @@ group :production do
   gem "pg"
   gem "rails_12factor"
 end
-# Use Puma as the app server
-gem 'puma', '~> 3.0'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -63,7 +62,6 @@ gem 'gmaps4rails'
 gem 'underscore-rails'
 gem "kaminari"
 gem "bootstrap4-kaminari-views"
-gem 'seed_dump', :git => 'https://github.com/firstdraft/seed_dump.git'
 gem 'activerecord-import'
 gem "ransack"
 gem 'momentjs-rails', '>= 2.9.0'
