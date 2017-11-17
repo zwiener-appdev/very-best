@@ -2,7 +2,7 @@ require "rails_helper"
 
 feature "/dishes" do
 
-  scenario "lists all dishes", points: 1 do
+  scenario "is the homepage and links to each dish", points: 2 do
     user = create(:user)
     login_as(user, :scope => :user)
 
@@ -11,11 +11,11 @@ feature "/dishes" do
     visit "/"
 
     Dish.all.each do |dish|
-      expect(page).to have_content(dish.name)
+      expect(page).to have_selector("a", text: dish.name)
     end
   end
 
-  scenario "displays venue for each dish", points: 1 do
+  scenario "displays venue for each dish", points: 4 do
     user = create(:user)
     cuisine = create(:cuisine_with_dishes)
     venue = create(:venue, neighborhood: create(:neighborhood))
@@ -27,7 +27,7 @@ feature "/dishes" do
     expect(page).to have_content(bookmark.venue.name)
   end
 
-  scenario "user can select venue if already not found for dish", points: 1 do
+  scenario "allows adding a new favorite venue for a dish", points: 6 do
     user = create(:user)
     login_as(user, :scope => :user)
 
@@ -43,7 +43,7 @@ feature "/dishes" do
     expect(dish.bookmarks.first.venue.id).to eq(venue.id)
   end
 
-  scenario "user can filter dishes by cuisine", points: 1 do
+  scenario "user can filter dishes by cuisine", points: 2 do
     user = create(:user)
     login_as(user, :scope => :user)
 
@@ -65,7 +65,7 @@ feature "/dishes" do
 
   end
 
-  scenario "user can search dished by name", points: 1 do
+  scenario "user can search dishes by name", points: 2 do
     user = create(:user)
     login_as(user, :scope => :user)
 
