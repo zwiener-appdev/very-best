@@ -1,13 +1,12 @@
 require "rails_helper"
 
-feature "Dish Index Page:" do
+feature "/dishes:" do
 
-  scenario "list all dishes", points: 1 do
+  scenario "lists all dishes", points: 1 do
     user = create(:user)
     login_as(user, :scope => :user)
-    
-    american_cuisine = create(:cuisine_with_dishes)
-    breakfast_cuisine = create(:cuisine_with_dishes)
+
+    cuisines = create_list(:cuisine_with_dishes, 2)
 
     visit "/"
 
@@ -29,12 +28,12 @@ feature "Dish Index Page:" do
   scenario "user can select venue if already not found for dish", points: 1 do
     user = create(:user)
     login_as(user, :scope => :user)
-    
+
     american_cuisine = create(:cuisine_with_dishes)
     dish = american_cuisine.dishes.first
     venue = create(:venue, neighborhood: create(:neighborhood))
     visit "/"
-    
+
     row = page.find(:css, "tr", text: dish.name )
     row.find("td:eq(2)").select(venue.name)
     row.find("button").click
@@ -53,7 +52,7 @@ feature "Dish Index Page:" do
     page.find(:css, "a", text: "Show Filters").click
     page.find(:css, "label", text: american_cuisine.name).click
     page.find("#dishes_filters").find("input[type='submit']").click
-    
+
     american_cuisine.dishes.each do |dish|
       expect(page).to have_content(dish.name)
     end

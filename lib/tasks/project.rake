@@ -2,7 +2,7 @@ namespace :project do
   desc "Attempt to update project, if there are no conflicts"
   task :update do
     if `git config remote.upstream.url`.blank?
-      `git remote add upstream git@github.com:appdevsummer17/very-best-demo-pr-3.git`
+      `git remote add upstream git@github.com:firstdraft-projects/very_best.git`
     end
 
     `git checkout -b project-update-#{Time.now.to_i}`
