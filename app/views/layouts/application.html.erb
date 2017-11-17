@@ -97,6 +97,8 @@
     <% end %>
 
     <%= yield %>
+
+    <%= dev_tools if Rails.env.development? %>
   </div>
 </body>
 </html>
