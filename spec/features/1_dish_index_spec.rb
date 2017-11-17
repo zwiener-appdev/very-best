@@ -1,6 +1,6 @@
 require "rails_helper"
 
-feature "/dishes:" do
+feature "/dishes" do
 
   scenario "lists all dishes", points: 1 do
     user = create(:user)
@@ -10,18 +10,20 @@ feature "/dishes:" do
 
     visit "/"
 
-    (american_cuisine.dishes + breakfast_cuisine.dishes).each do |dish|
+    Dish.all.each do |dish|
       expect(page).to have_content(dish.name)
     end
   end
 
   scenario "displays venue for each dish", points: 1 do
     user = create(:user)
-    login_as(user, :scope => :user)
-    american_cuisine = create(:cuisine_with_dishes)
+    cuisine = create(:cuisine_with_dishes)
     venue = create(:venue, neighborhood: create(:neighborhood))
-    bookmark = create(:bookmark, user_id: user.id, dish_id: american_cuisine.dishes.first.id, venue_id: venue.id)
+    bookmark = create(:bookmark, user_id: user.id, dish_id: cuisine.dishes.first.id, venue_id: venue.id)
+
+    login_as(user, :scope => :user)
     visit "/"
+
     expect(page).to have_content(bookmark.venue.name)
   end
 

@@ -2,7 +2,6 @@
 
 ## Setup
 
- - `bundle install --without production`
- - `rake db:migrate`
- - `rake db:seed`
- - `rails s`
+ - `bin/setup`
+
+Please see [this guide](https://guides.firstdraft.com/very-best-project-guide.html) for detailed instructions.

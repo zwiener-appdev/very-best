@@ -1,35 +1,26 @@
 require "rails_helper"
 
-feature "Venue show Page:" do
+feature "/venues/:id" do
 
-  scenario "shows users bookmarked dishes", points: 1 do
-    user_1 = create(:user)
-    login_as(user_1, :scope => :user)
+  scenario "shows the signed in user's bookmarked dishes", points: 5 do
+    user = create(:user)
+    neighborhood = create(:neighborhood)
+    venue_1 = create(:venue, neighborhood: neighborhood)
+    venue_2 = create(:venue, neighborhood: neighborhood)
 
-    american_cuisine = create(:cuisine_with_dishes)
-    dish_1 = american_cuisine.dishes.first
-    neighborhood_1 = create(:neighborhood)
-    venue_1 = create(:venue, neighborhood: neighborhood_1)
-    bookmark_1 = create(:bookmark, user_id: user_1.id, dish_id: dish_1.id, venue_id: venue_1.id)
-    
-    breakfast_cuisine = create(:cuisine_with_dishes)
-    dish_2 = breakfast_cuisine.dishes.first
-    neighborhood_2 = create(:neighborhood)
-    bookmark_2 = create(:bookmark, user_id: user_1.id, dish_id: dish_2.id, venue_id: venue_1.id)
+    cuisine_1 = create(:cuisine_with_dishes)
+    dish_1 = cuisine_1.dishes.first
+    bookmark_1 = create(:bookmark, user_id: user.id, dish_id: dish_1.id, venue_id: venue_1.id)
 
-    italian_cuisine = create(:cuisine_with_dishes)
-    dish_3 = italian_cuisine.dishes.first
-    user_2 = create(:user)
-    neighborhood_3 = create(:neighborhood)
-    venue_2 = create(:venue, neighborhood: neighborhood_3)
-    bookmark_3 = create(:bookmark, user_id: user_1.id, dish_id: dish_3.id, venue_id: venue_1.id)
+    cuisine_2 = create(:cuisine_with_dishes)
+    dish_2 = cuisine_2.dishes.first
+    bookmark_2 = create(:bookmark, user_id: user.id, dish_id: dish_2.id, venue_id: venue_2.id)
 
+    login_as(user, :scope => :user)
     visit "/venues/#{venue_1.id}"
 
-    venue_1.bookmarks.where(:user_id => user_1.id).each do |bookmark|
-      expect(page).to have_selector("li.user_bookmarked_dish", text: bookmark.dish.name)
-    end
-
+    expect(page).to have_selector("a", text: bookmark_1.dish.name)
+    expect(page).to_not have_selector("a", text: bookmark_2.dish.name)
   end
 
   scenario "can add a new bookmarked dish to the venue", points: 1 do
@@ -41,7 +32,7 @@ feature "Venue show Page:" do
     neighborhood_1 = create(:neighborhood)
     venue_1 = create(:venue, neighborhood: neighborhood_1)
     bookmark_1 = create(:bookmark, user_id: user_1.id, dish_id: dish_1.id, venue_id: venue_1.id)
-    
+
     breakfast_cuisine = create(:cuisine_with_dishes)
     dish_2 = breakfast_cuisine.dishes.first
     neighborhood_2 = create(:neighborhood)
@@ -71,7 +62,7 @@ feature "Venue show Page:" do
     neighborhood_1 = create(:neighborhood)
     venue_1 = create(:venue, neighborhood: neighborhood_1)
     bookmark_1 = create(:bookmark, user_id: user_1.id, dish_id: dish_1.id, venue_id: venue_1.id)
-    
+
     breakfast_cuisine = create(:cuisine_with_dishes)
     dish_2 = breakfast_cuisine.dishes.first
     neighborhood_2 = create(:neighborhood)
