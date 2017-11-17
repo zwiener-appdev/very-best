@@ -65,7 +65,7 @@ feature "/dishes" do
 
   end
 
-  scenario "user can search dishes by name", points: 2 do
+  scenario "can filter dishes by name", points: 2 do
     user = create(:user)
     login_as(user, :scope => :user)
 
@@ -86,7 +86,7 @@ feature "/dishes" do
     end
   end
 
-  scenario "user can add a new venue", points: 1 do
+  scenario "has a link to a new venue", points: 1 do
     user = create(:user)
     login_as(user, :scope => :user)
     visit "/"

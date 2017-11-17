@@ -1,7 +1,7 @@
 require "rails_helper"
 
-feature "Dish Show Page:" do
-  scenario "user can bookmark a new venue for the dish", points: 1 do
+feature "/dish/:id" do
+  scenario "user can bookmark a new venue for the dish", points: 2 do
     user = create(:user)
     login_as(user, :scope => :user)
     american_cuisine = create(:cuisine_with_dishes)
@@ -10,11 +10,11 @@ feature "Dish Show Page:" do
     visit "/dishes/#{dish.id}"
     page.find("#venue_id").select(venue.name)
     page.find('form button').click
-    
+
     expect(dish.bookmarks.first.venue.id).to eq(venue.id)
   end
 
-  scenario "list all the venues for the dish in the past", points: 1 do
+  scenario "lists all the past venues", points: 4 do
     user = create(:user)
     login_as(user, :scope => :user)
 

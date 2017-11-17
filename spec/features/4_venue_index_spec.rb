@@ -1,8 +1,8 @@
 require "rails_helper"
 
-feature "Venue Index Page:" do
+feature "/venues" do
 
-  scenario "list all venues that user bookmarked dishes for", points: 1 do
+  scenario "lists signed in user's bookmarked venues", points: 2 do
     user = create(:user)
     login_as(user, :scope => :user)
 
@@ -27,7 +27,7 @@ feature "Venue Index Page:" do
     expect(page).not_to have_content(venue_3.name)
   end
 
-  scenario "user can able to filter venue with neighborhood", points: 1 do
+  scenario "filters venue by neighborhood", points: 2 do
     user = create(:user)
     login_as(user, :scope => :user)
 
@@ -52,7 +52,7 @@ feature "Venue Index Page:" do
     page.find(:css, "a", text: "Show Filters").click
     fill_in('Neighborhood name contains', :with => neighborhood_1.name)
     page.find("#venues_filters").find("input[type='submit']").click
-    
+
     neighborhood_1.venues.each do |venue|
       expect(page).to have_content(venue.name)
     end
@@ -63,7 +63,7 @@ feature "Venue Index Page:" do
 
   end
 
-  scenario "user can able to filter venue with bookmarked dish", points: 1 do
+  scenario "filters venue by dish", points: 1 do
     user = create(:user)
     login_as(user, :scope => :user)
 
@@ -85,7 +85,7 @@ feature "Venue Index Page:" do
     bookmark_2 = create(:bookmark, user_id: user.id, dish_id: dish_2.id, venue_id: venue_3.id)
 
     visit "/venues"
-    
+
     page.find(:css, "a", text: "Show Filters").click
     fill_in('Bookmarked dish name contains', :with => dish_1.name)
     page.find("#venues_filters").find("input[type='submit']").click
