@@ -13,8 +13,6 @@ namespace :project do
     `git reset --hard upstream/master`
     `git checkout -`
     `git rebase upstream/master`
-    `rails db:drop`
-    `bin/setup`
     `git add -A`
     `git commit -m "Updated project from upstream"`
   end
