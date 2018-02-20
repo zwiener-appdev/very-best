@@ -1,8 +1,7 @@
 require "rails_helper"
 
-feature "/venues/:id" do
-
-  scenario "shows the signed in user's bookmarked dishes", points: 5 do
+describe "/venues/[VENUE ID]" do
+  it "shows the signed in user's bookmarked dishes", points: 5 do
     user = create(:user)
     neighborhood = create(:neighborhood)
     venue_1 = create(:venue, neighborhood: neighborhood)
@@ -22,8 +21,10 @@ feature "/venues/:id" do
     expect(page).to have_selector("a", text: bookmark_1.dish.name)
     expect(page).to_not have_selector("a", text: bookmark_2.dish.name)
   end
+end
 
-  scenario "can add a new bookmarked dish to the venue", points: 2 do
+describe "/venues/[VENUE ID]" do
+  it "can add a new bookmarked dish to the venue", points: 2 do
     user_1 = create(:user)
     login_as(user_1, :scope => :user)
 

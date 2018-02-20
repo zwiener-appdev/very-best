@@ -1,8 +1,7 @@
 require "rails_helper"
 
-feature "/dishes" do
-
-  scenario "is the homepage and links to each dish", points: 2 do
+describe "/dishes" do
+  it "is the homepage and links to each dish", points: 2 do
     user = create(:user)
     login_as(user, :scope => :user)
 
@@ -14,8 +13,10 @@ feature "/dishes" do
       expect(page).to have_selector("a", text: dish.name)
     end
   end
+end
 
-  scenario "displays venue for each dish", points: 4 do
+describe "/dishes" do
+  it "displays venue for each dish", points: 4 do
     user = create(:user)
     cuisine = create(:cuisine_with_dishes)
     venue = create(:venue, neighborhood: create(:neighborhood))
@@ -26,8 +27,10 @@ feature "/dishes" do
 
     expect(page).to have_content(bookmark.venue.name)
   end
+end
 
-  scenario "allows adding a new favorite venue for a dish", points: 6 do
+describe "/dishes" do
+  it "allows adding a new favorite venue for a dish", points: 6 do
     user = create(:user)
     login_as(user, :scope => :user)
 
@@ -42,8 +45,10 @@ feature "/dishes" do
 
     expect(dish.bookmarks.first.venue.id).to eq(venue.id)
   end
+end
 
-  scenario "user can filter dishes by cuisine", points: 2 do
+describe "/dishes" do
+  it "user can filter dishes by cuisine", points: 2 do
     user = create(:user)
     login_as(user, :scope => :user)
 
@@ -64,8 +69,10 @@ feature "/dishes" do
     end
 
   end
+end
 
-  scenario "can filter dishes by name", points: 2 do
+describe "/dishes" do
+  it "can filter dishes by name", points: 2 do
     user = create(:user)
     login_as(user, :scope => :user)
 
@@ -85,12 +92,13 @@ feature "/dishes" do
       expect(page).not_to have_content(dish.name)
     end
   end
+end
 
-  scenario "has a link to a new venue", points: 1 do
+describe "/dishes" do
+  it "has a link to a new venue", points: 1 do
     user = create(:user)
     login_as(user, :scope => :user)
     visit "/"
     expect(page).to have_selector('a[href="/venues/new"]')
   end
-
 end

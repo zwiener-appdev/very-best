@@ -1,7 +1,7 @@
 require "rails_helper"
 
-feature "/dish/:id" do
-  scenario "user can bookmark a new venue for the dish", points: 2 do
+describe "/dish/[DISH ID]" do
+  it "user can bookmark a new venue for the dish", points: 2 do
     user = create(:user)
     login_as(user, :scope => :user)
     american_cuisine = create(:cuisine_with_dishes)
@@ -13,8 +13,10 @@ feature "/dish/:id" do
 
     expect(dish.bookmarks.first.venue.id).to eq(venue.id)
   end
+end
 
-  scenario "lists all the past venues", points: 4 do
+describe "/dish/[DISH ID]" do
+  it "lists all the past venues", points: 4 do
     user = create(:user)
     login_as(user, :scope => :user)
 

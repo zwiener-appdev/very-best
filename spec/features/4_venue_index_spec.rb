@@ -1,8 +1,7 @@
 require "rails_helper"
 
-feature "/venues" do
-
-  scenario "lists signed in user's bookmarked venues", points: 2 do
+describe "/venues" do
+  it "lists signed in user's bookmarked venues", points: 2 do
     user = create(:user)
     login_as(user, :scope => :user)
 
@@ -26,8 +25,10 @@ feature "/venues" do
     expect(page).to have_content(venue_2.name)
     expect(page).not_to have_content(venue_3.name)
   end
+end
 
-  scenario "filters venue by neighborhood", points: 2 do
+describe "/venues" do
+  it "filters venue by neighborhood", points: 2 do
     user = create(:user)
     login_as(user, :scope => :user)
 
@@ -62,8 +63,10 @@ feature "/venues" do
     end
 
   end
+end
 
-  scenario "filters venue by dish", points: 1 do
+describe "/venues" do
+  it "filters venue by dish", points: 1 do
     user = create(:user)
     login_as(user, :scope => :user)
 
