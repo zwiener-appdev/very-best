@@ -81,7 +81,7 @@ group :development do
   gem 'better_errors'
   gem 'dev_toolbar', git: 'https://github.com/firstdraft/dev_toolbar.git'
   gem 'binding_of_caller'
-  gem 'firstdraft_generators', github: 'firstdraft/firstdraft_generators'
+  gem 'draft_generators', github: 'firstdraft/draft_generators'
   gem 'letter_opener'
   gem 'meta_request'
   gem 'wdm', platforms: [:mingw, :mswin, :x64_mingw]
