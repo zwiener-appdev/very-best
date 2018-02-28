@@ -5,7 +5,7 @@ class BookmarksController < ApplicationController
     bookmark = Bookmark.find(params[:id])
 
     unless current_user == bookmark.user
-      redirect_to :back, :alert => "You are not authorized for that."
+      redirect_back :fallback_location => "/", :alert => "You are not authorized for that."
     end
   end
 
