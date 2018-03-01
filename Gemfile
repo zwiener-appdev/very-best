@@ -56,8 +56,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'devise'
 gem 'starter_generators', :git => 'https://github.com/raghubetina/starter_generators.git',  :branch => 'firstdraft'
 gem 'font-awesome-sass', '~> 4.5.0'
-gem 'activeadmin', '~> 1.0.0.pre4'
-gem 'inherited_resources', :git => 'https://github.com/activeadmin/inherited_resources.git'
+gem 'activeadmin'
 gem 'gmaps4rails'
 gem 'underscore-rails'
 gem "kaminari"
