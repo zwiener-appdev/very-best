@@ -15,8 +15,6 @@
 <div class="row">
   <div class="col-md-12">
     <form action="/update_bookmark/<%= @bookmark.id %>" method="post">
-      <!-- Hidden input for authenticity token to protect from forgery -->
-      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
 
       <!-- Label and input for dish_id -->
       <div class="form-group">
@@ -36,8 +34,8 @@
         <%= select_tag(:venue_id, options_from_collection_for_select(Venue.all, :id, :name, @bookmark.venue_id), :class => "form-control") %>
       </div>
 
-      
-      
+
+
 
       <!-- Label and input for notes -->
       <div class="form-group">
