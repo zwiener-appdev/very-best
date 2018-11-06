@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
   def index
-    puts "====="*8
-    puts params[:page]
+    
     if params.has_key?("page")
       page = params.fetch("page")
       @users = User.page(page)

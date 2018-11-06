@@ -1,7 +1,14 @@
 class DishesController < ApplicationController
   def index
-    @q = Dish.ransack(params.fetch("q"))
-    @dishes = @q.result(:distinct => true).includes(:cuisine, :bookmarks, :fans, :specialists).page(params.fetch("page")).per(10)
+    if params.has_key?("q")
+      @q = Dish.ransack(params.fetch("q"))
+      @dishes = @q.result(:distinct => true).includes(:cuisine, :bookmarks, :fans, :specialists).page(params.fetch("page")).per(10)
+
+    else
+      @q = Dish.ransack(nil)
+      @dishes = @q.result(:distinct => true).includes(:cuisine, :bookmarks, :fans, :specialists).page(nil).per(10)
+
+    end
 
     render("dishes/index.html.erb")
   end
