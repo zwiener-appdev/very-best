@@ -66,10 +66,8 @@ class BookmarksController < ApplicationController
 
   def update
     @bookmark = Bookmark.find(params.fetch("id"))
-
     @bookmark.dish_id = params.fetch("dish_id")
     @bookmark.venue_id = params.fetch("venue_id")
-    @bookmark.user_id = params.fetch("user_id")
     @bookmark.notes = params.fetch("notes")
 
     save_status = @bookmark.save
