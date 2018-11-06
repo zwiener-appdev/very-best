@@ -19,19 +19,19 @@ class BookmarksController < ApplicationController
       @bookmarks =  @q.result(:distinct => true).includes(:user, :venue, :dish).page(nil).per(10)
     end
 
-    render("bookmarks/index.html.erb")
+    render("bookmarks_templates/index.html.erb")
   end
 
   def show
     @bookmark = Bookmark.find(params.fetch("id"))
 
-    render("bookmarks/show.html.erb")
+    render("bookmarks_templates/show.html.erb")
   end
 
   def new
     @bookmark = Bookmark.new
 
-    render("bookmarks/new.html.erb")
+    render("bookmarks_templates/new.html.erb")
   end
 
   def create
@@ -54,14 +54,14 @@ class BookmarksController < ApplicationController
         redirect_back(:fallback_location => "/", :notice => "Bookmark created successfully.")
       end
     else
-      render("bookmarks/new.html.erb")
+      render("bookmarks_templates/new.html.erb")
     end
   end
 
   def edit
     @bookmark = Bookmark.find(params.fetch("id"))
 
-    render("bookmarks/edit.html.erb")
+    render("bookmarks_templates/edit.html.erb")
   end
 
   def update
@@ -84,7 +84,7 @@ class BookmarksController < ApplicationController
         redirect_back(:fallback_location => "/", :notice => "Bookmark updated successfully.")
       end
     else
-      render("bookmarks/edit.html.erb")
+      render("bookmarks_templates/edit.html.erb")
     end
   end
 

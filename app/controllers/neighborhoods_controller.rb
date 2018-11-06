@@ -10,20 +10,20 @@ class NeighborhoodsController < ApplicationController
 
     end
 
-    render("neighborhoods/index.html.erb")
+    render("neighborhoods_templates/index.html.erb")
   end
 
   def show
     @venue = Venue.new
     @neighborhood = Neighborhood.find(params.fetch("id"))
 
-    render("neighborhoods/show.html.erb")
+    render("neighborhoods_templates/show.html.erb")
   end
 
   def new
     @neighborhood = Neighborhood.new
 
-    render("neighborhoods/new.html.erb")
+    render("neighborhoods_templates/new.html.erb")
   end
 
   def create
@@ -45,14 +45,14 @@ class NeighborhoodsController < ApplicationController
         redirect_back(:fallback_location => "/", :notice => "Neighborhood created successfully.")
       end
     else
-      render("neighborhoods/new.html.erb")
+      render("neighborhoods_templates/new.html.erb")
     end
   end
 
   def edit
     @neighborhood = Neighborhood.find(params.fetch("id"))
 
-    render("neighborhoods/edit.html.erb")
+    render("neighborhoods_templates/edit.html.erb")
   end
 
   def update
@@ -74,7 +74,7 @@ class NeighborhoodsController < ApplicationController
         redirect_back(:fallback_location => "/", :notice => "Neighborhood updated successfully.")
       end
     else
-      render("neighborhoods/edit.html.erb")
+      render("neighborhoods_templates/edit.html.erb")
     end
   end
 

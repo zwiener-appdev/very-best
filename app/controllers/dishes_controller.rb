@@ -10,20 +10,20 @@ class DishesController < ApplicationController
 
     end
 
-    render("dishes/index.html.erb")
+    render("dishes_templates/index.html.erb")
   end
 
   def show
     @bookmark = Bookmark.new
     @dish = Dish.find(params.fetch("id"))
 
-    render("dishes/show.html.erb")
+    render("dishes_templates/show.html.erb")
   end
 
   def new
     @dish = Dish.new
 
-    render("dishes/new.html.erb")
+    render("dishes_templates/new.html.erb")
   end
 
   def create
@@ -44,14 +44,14 @@ class DishesController < ApplicationController
         redirect_back(:fallback_location => "/", :notice => "Dish created successfully.")
       end
     else
-      render("dishes/new.html.erb")
+      render("dishes_templates/new.html.erb")
     end
   end
 
   def edit
     @dish = Dish.find(params.fetch("id"))
 
-    render("dishes/edit.html.erb")
+    render("dishes_templates/edit.html.erb")
   end
 
   def update
@@ -72,7 +72,7 @@ class DishesController < ApplicationController
         redirect_back(:fallback_location => "/", :notice => "Dish updated successfully.")
       end
     else
-      render("dishes/edit.html.erb")
+      render("dishes_templates/edit.html.erb")
     end
   end
 

@@ -10,20 +10,20 @@ class CuisinesController < ApplicationController
 
     end
 
-    render("cuisines/index.html.erb")
+    render("cuisines_templates/index.html.erb")
   end
 
   def show
     @dish = Dish.new
     @cuisine = Cuisine.find(params.fetch("id"))
 
-    render("cuisines/show.html.erb")
+    render("cuisines_templates/show.html.erb")
   end
 
   def new
     @cuisine = Cuisine.new
 
-    render("cuisines/new.html.erb")
+    render("cuisines_templates/new.html.erb")
   end
 
   def create
@@ -43,14 +43,14 @@ class CuisinesController < ApplicationController
         redirect_back(:fallback_location => "/", :notice => "Cuisine created successfully.")
       end
     else
-      render("cuisines/new.html.erb")
+      render("cuisines_templates/new.html.erb")
     end
   end
 
   def edit
     @cuisine = Cuisine.find(params.fetch("id"))
 
-    render("cuisines/edit.html.erb")
+    render("cuisines_templates/edit.html.erb")
   end
 
   def update
@@ -70,7 +70,7 @@ class CuisinesController < ApplicationController
         redirect_back(:fallback_location => "/", :notice => "Cuisine updated successfully.")
       end
     else
-      render("cuisines/edit.html.erb")
+      render("cuisines_templates/edit.html.erb")
     end
   end
 

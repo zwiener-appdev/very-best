@@ -13,23 +13,23 @@ class VenuesController < ApplicationController
       marker.lat venue.address_latitude
       marker.lng venue.address_longitude
       marker.infowindow "<h5><a href='/venues/#{venue.id}'>#{venue.created_at}</a></h5><small>#{venue.address_formatted_address}</small>"
-      
+
     end
 
-    render("venues/index.html.erb")
+    render("venues_templates/index.html.erb")
   end
 
   def show
     @bookmark = Bookmark.new
     @venue = Venue.find(params.fetch("id"))
 
-    render("venues/show.html.erb")
+    render("venues_templates/show.html.erb")
   end
 
   def new
     @venue = Venue.new
 
-    render("venues/new.html.erb")
+    render("venues_templates/new.html.erb")
   end
 
   def create
@@ -51,14 +51,14 @@ class VenuesController < ApplicationController
         redirect_back(:fallback_location => "/", :notice => "Venue created successfully.")
       end
     else
-      render("venues/new.html.erb")
+      render("venues_templates/new.html.erb")
     end
   end
 
   def edit
     @venue = Venue.find(params.fetch("id"))
 
-    render("venues/edit.html.erb")
+    render("venues_templates/edit.html.erb")
   end
 
   def update
@@ -80,7 +80,7 @@ class VenuesController < ApplicationController
         redirect_back(:fallback_location => "/", :notice => "Venue updated successfully.")
       end
     else
-      render("venues/edit.html.erb")
+      render("venues_templates/edit.html.erb")
     end
   end
 
