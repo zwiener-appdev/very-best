@@ -1,7 +1,7 @@
 class VenuesController < ApplicationController
   def index
-    @q = Venue.ransack(params[:q])
-    @venues = @q.result(:distinct => true).includes(:bookmarks, :neighborhood, :fans, :specialties).page(params[:page]).per(10)
+    @q = Venue.ransack(params.fetch("q"))
+    @venues = @q.result(:distinct => true).includes(:bookmarks, :neighborhood, :fans, :specialties).page(params.fetch("page")).per(10)
     @location_hash = Gmaps4rails.build_markers(@venues.where.not(:address_latitude => nil)) do |venue, marker|
       marker.lat venue.address_latitude
       marker.lng venue.address_longitude
@@ -13,7 +13,7 @@ class VenuesController < ApplicationController
 
   def show
     @bookmark = Bookmark.new
-    @venue = Venue.find(params[:id])
+    @venue = Venue.find(params.fetch("id"))
 
     render("venues/show.html.erb")
   end
@@ -27,9 +27,9 @@ class VenuesController < ApplicationController
   def create
     @venue = Venue.new
 
-    @venue.name = params[:name]
-    @venue.address = params[:address]
-    @venue.neighborhood_id = params[:neighborhood_id]
+    @venue.name = params.fetch("name")
+    @venue.address = params.fetch("address")
+    @venue.neighborhood_id = params.fetch("neighborhood_id")
 
     save_status = @venue.save
 
@@ -48,17 +48,17 @@ class VenuesController < ApplicationController
   end
 
   def edit
-    @venue = Venue.find(params[:id])
+    @venue = Venue.find(params.fetch("id"))
 
     render("venues/edit.html.erb")
   end
 
   def update
-    @venue = Venue.find(params[:id])
+    @venue = Venue.find(params.fetch("id"))
 
-    @venue.name = params[:name]
-    @venue.address = params[:address]
-    @venue.neighborhood_id = params[:neighborhood_id]
+    @venue.name = params.fetch("name")
+    @venue.address = params.fetch("address")
+    @venue.neighborhood_id = params.fetch("neighborhood_id")
 
     save_status = @venue.save
 
@@ -77,7 +77,7 @@ class VenuesController < ApplicationController
   end
 
   def destroy
-    @venue = Venue.find(params[:id])
+    @venue = Venue.find(params.fetch("id"))
 
     @venue.destroy
 

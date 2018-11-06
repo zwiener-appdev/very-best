@@ -75,13 +75,13 @@ group :development, :test do
   gem "console_ip_whitelist", github: "firstdraft/console_ip_whitelist"
   gem "draft_log", github: "firstdraft/draft_log"
   gem "better_errors"
+  gem "binding_of_caller"
 end
 
 group :development do
   gem "annotate"
   gem "awesome_print"
   gem "dev_toolbar", git: "https://github.com/firstdraft/dev_toolbar.git"
-  gem "binding_of_caller"
   gem "draft_generators", github: "firstdraft/draft_generators"
   gem "letter_opener"
   gem "meta_request"

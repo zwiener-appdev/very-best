@@ -1,14 +1,14 @@
 class NeighborhoodsController < ApplicationController
   def index
-    @q = Neighborhood.ransack(params[:q])
-    @neighborhoods = @q.result(:distinct => true).includes(:venues).page(params[:page]).per(10)
+    @q = Neighborhood.ransack(params.fetch("q"))
+    @neighborhoods = @q.result(:distinct => true).includes(:venues).page(params.fetch("page")).per(10)
 
     render("neighborhoods/index.html.erb")
   end
 
   def show
     @venue = Venue.new
-    @neighborhood = Neighborhood.find(params[:id])
+    @neighborhood = Neighborhood.find(params.fetch("id"))
 
     render("neighborhoods/show.html.erb")
   end
@@ -22,9 +22,9 @@ class NeighborhoodsController < ApplicationController
   def create
     @neighborhood = Neighborhood.new
 
-    @neighborhood.name = params[:name]
-    @neighborhood.city = params[:city]
-    @neighborhood.state = params[:state]
+    @neighborhood.name = params.fetch("name")
+    @neighborhood.city = params.fetch("city")
+    @neighborhood.state = params.fetch("state")
 
     save_status = @neighborhood.save
 
@@ -43,17 +43,17 @@ class NeighborhoodsController < ApplicationController
   end
 
   def edit
-    @neighborhood = Neighborhood.find(params[:id])
+    @neighborhood = Neighborhood.find(params.fetch("id"))
 
     render("neighborhoods/edit.html.erb")
   end
 
   def update
-    @neighborhood = Neighborhood.find(params[:id])
+    @neighborhood = Neighborhood.find(params.fetch("id"))
 
-    @neighborhood.name = params[:name]
-    @neighborhood.city = params[:city]
-    @neighborhood.state = params[:state]
+    @neighborhood.name = params.fetch("name")
+    @neighborhood.city = params.fetch("city")
+    @neighborhood.state = params.fetch("state")
 
     save_status = @neighborhood.save
 
@@ -72,7 +72,7 @@ class NeighborhoodsController < ApplicationController
   end
 
   def destroy
-    @neighborhood = Neighborhood.find(params[:id])
+    @neighborhood = Neighborhood.find(params.fetch("id"))
 
     @neighborhood.destroy
 

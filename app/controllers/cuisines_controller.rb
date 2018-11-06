@@ -1,14 +1,14 @@
 class CuisinesController < ApplicationController
   def index
-    @q = Cuisine.ransack(params[:q])
-    @cuisines = @q.result(:distinct => true).includes(:dishes).page(params[:page]).per(10)
+    @q = Cuisine.ransack(params.fetch("q"))
+    @cuisines = @q.result(:distinct => true).includes(:dishes).page(params.fetch("page")).per(10)
 
     render("cuisines/index.html.erb")
   end
 
   def show
     @dish = Dish.new
-    @cuisine = Cuisine.find(params[:id])
+    @cuisine = Cuisine.find(params.fetch("id"))
 
     render("cuisines/show.html.erb")
   end
@@ -22,7 +22,7 @@ class CuisinesController < ApplicationController
   def create
     @cuisine = Cuisine.new
 
-    @cuisine.name = params[:name]
+    @cuisine.name = params.fetch("name")
 
     save_status = @cuisine.save
 
@@ -41,15 +41,15 @@ class CuisinesController < ApplicationController
   end
 
   def edit
-    @cuisine = Cuisine.find(params[:id])
+    @cuisine = Cuisine.find(params.fetch("id"))
 
     render("cuisines/edit.html.erb")
   end
 
   def update
-    @cuisine = Cuisine.find(params[:id])
+    @cuisine = Cuisine.find(params.fetch("id"))
 
-    @cuisine.name = params[:name]
+    @cuisine.name = params.fetch("name")
 
     save_status = @cuisine.save
 
@@ -68,7 +68,7 @@ class CuisinesController < ApplicationController
   end
 
   def destroy
-    @cuisine = Cuisine.find(params[:id])
+    @cuisine = Cuisine.find(params.fetch("id"))
 
     @cuisine.destroy
 

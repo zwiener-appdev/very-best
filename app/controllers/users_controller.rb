@@ -1,9 +1,16 @@
 class UsersController < ApplicationController
   def index
-    @users = User.page(params[:page]).per(10)
+    puts "====="*8
+    puts params[:page]
+    if params.has_key?("page")
+      page = params.fetch("page")
+      @users = User.page(page)
+    else
+      @users = User.page(nil)
+    end
   end
 
   def show
-    @user = User.find(params[:id])
+    @user = User.find(params.fetch("id"))
   end
 end

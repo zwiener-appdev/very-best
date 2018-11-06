@@ -2,7 +2,7 @@ class BookmarksController < ApplicationController
   before_action :current_user_must_be_bookmark_user, :only => [:edit, :update, :destroy]
 
   def current_user_must_be_bookmark_user
-    bookmark = Bookmark.find(params[:id])
+    bookmark = Bookmark.find(params.fetch("id"))
 
     unless current_user == bookmark.user
       redirect_back :fallback_location => "/", :alert => "You are not authorized for that."
@@ -10,14 +10,24 @@ class BookmarksController < ApplicationController
   end
 
   def index
-    @q = current_user.bookmarks.ransack(params[:q])
-      @bookmarks = @q.result(:distinct => true).includes(:user, :venue, :dish).page(params[:page]).per(10)
+    if params.has_key?("q")
+      @q = current_user.bookmarks.ransack(params.fetch("q"))
+      if params.has_key?("page")
+        page = params.fetch("page")
+        @bookmarks =  @q.result(:distinct => true).includes(:user, :venue, :dish).page(page).per(10)
+      else
+        @bookmarks =  @q.result(:distinct => true).includes(:user, :venue, :dish).page(nil).per(10)
+      end
+    else
+      @q = current_user.bookmarks.ransack(nil)
+      @bookmarks =  @q.result(:distinct => true).includes(:user, :venue, :dish).page(nil).per(10)
+    end
 
     render("bookmarks/index.html.erb")
   end
 
   def show
-    @bookmark = Bookmark.find(params[:id])
+    @bookmark = Bookmark.find(params.fetch("id"))
 
     render("bookmarks/show.html.erb")
   end
@@ -31,10 +41,10 @@ class BookmarksController < ApplicationController
   def create
     @bookmark = Bookmark.new
 
-    @bookmark.dish_id = params[:dish_id]
-    @bookmark.venue_id = params[:venue_id]
-    @bookmark.user_id = params[:user_id]
-    @bookmark.notes = params[:notes]
+    @bookmark.dish_id = params.fetch("dish_id")
+    @bookmark.venue_id = params.fetch("venue_id")
+    @bookmark.user_id = params.fetch("user_id")
+    @bookmark.notes = params.fetch("notes")
 
     save_status = @bookmark.save
 
@@ -53,18 +63,18 @@ class BookmarksController < ApplicationController
   end
 
   def edit
-    @bookmark = Bookmark.find(params[:id])
+    @bookmark = Bookmark.find(params.fetch("id"))
 
     render("bookmarks/edit.html.erb")
   end
 
   def update
-    @bookmark = Bookmark.find(params[:id])
+    @bookmark = Bookmark.find(params.fetch("id"))
 
-    @bookmark.dish_id = params[:dish_id]
-    @bookmark.venue_id = params[:venue_id]
-    @bookmark.user_id = params[:user_id]
-    @bookmark.notes = params[:notes]
+    @bookmark.dish_id = params.fetch("dish_id")
+    @bookmark.venue_id = params.fetch("venue_id")
+    @bookmark.user_id = params.fetch("user_id")
+    @bookmark.notes = params.fetch("notes")
 
     save_status = @bookmark.save
 
@@ -83,7 +93,7 @@ class BookmarksController < ApplicationController
   end
 
   def destroy
-    @bookmark = Bookmark.find(params[:id])
+    @bookmark = Bookmark.find(params.fetch("id"))
 
     @bookmark.destroy
 
