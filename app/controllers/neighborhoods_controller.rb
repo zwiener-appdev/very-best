@@ -1,14 +1,7 @@
 class NeighborhoodsController < ApplicationController
   def index
-    if params.has_key?("q")
-      @q = Neighborhood.ransack(params.fetch("q"))
-      @neighborhoods = @q.result(:distinct => true).includes(:venues).page(params.fetch("page")).per(10)
-
-    else
-      @q = Neighborhood.ransack(nil)
-      @neighborhoods = @q.result(:distinct => true).includes(:venues).page(nil).per(10)
-
-    end
+    @q = Neighborhood.ransack(params.fetch("q", nil))
+    @neighborhoods = @q.result(:distinct => true).includes(:venues).page(params.fetch("page", nil)).per(10)
 
     render("neighborhoods_templates/index.html.erb")
   end

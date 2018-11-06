@@ -1,12 +1,7 @@
 class UsersController < ApplicationController
   def index
 
-    if params.has_key?("page")
-      page = params.fetch("page")
-      @users = User.page(page)
-    else
-      @users = User.page(nil)
-    end
+    @users = User.page(params.fetch("page", nil))
     render("users_templates/index.html.erb")
   end
 

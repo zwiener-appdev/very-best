@@ -10,15 +10,9 @@ class BookmarksController < ApplicationController
   end
 
   def index
-    if params.has_key?("q")
-      @q = current_user.bookmarks.ransack(params.fetch("q"))
-      page = params.fetch("page")
-      @bookmarks =  @q.result(:distinct => true).includes(:user, :venue, :dish).page(page).per(10)
-    else
-      @q = current_user.bookmarks.ransack(nil)
-      @bookmarks =  @q.result(:distinct => true).includes(:user, :venue, :dish).page(nil).per(10)
-    end
-
+    @q = current_user.bookmarks.ransack(params.fetch("q", nil))
+    @bookmarks =  @q.result(:distinct => true).includes(:user, :venue, :dish).page(params.fetch("page", nil)).per(10)
+  
     render("bookmarks_templates/index.html.erb")
   end
 
