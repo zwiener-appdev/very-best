@@ -68,7 +68,7 @@ group :development, :test do
   gem "draft_log", github: "firstdraft/draft_log"
   gem "better_errors"
   gem "binding_of_caller"
-  gem "sqlite3"
+  gem "sqlite3", "~> 1.3.6"
 end
 
 group :development do
