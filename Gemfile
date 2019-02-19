@@ -9,10 +9,6 @@ end
 # Bundle edge Rails instead: gem "rails", github: "rails/rails"
 gem "rails", "~> 5.1.4"
 
-  gem "sqlite3"
-group :development do
-end
-
 
 # Use SCSS for stylesheets
 gem "sass-rails", "~> 5.0"
@@ -72,6 +68,7 @@ group :development, :test do
   gem "draft_log", github: "firstdraft/draft_log"
   gem "better_errors"
   gem "binding_of_caller"
+  gem "sqlite3"
 end
 
 group :development do
@@ -89,4 +86,9 @@ group :test do
   gem "factory_bot_rails"
   gem "rspec-rails"
   gem "webmock"
+end
+
+group :production do
+  gem "pg"
+  gem "rails_12factor"
 end
