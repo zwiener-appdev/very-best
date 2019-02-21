@@ -5,7 +5,7 @@ FactoryBot.define do
 
     factory :cuisine_with_dishes do
       transient do
-        dishes_count 1
+        dishes_count { 1 }
       end
 
       after(:create) do |cuisine, evaluator|
