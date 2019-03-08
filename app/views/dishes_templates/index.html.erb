@@ -1,14 +1,13 @@
 <div class="page-header">
-  <h1>
-    Dishes
-    <a href="/dishes/new" class="btn btn-lg btn-success">New Dish</a>
-  </h1>
-</div><div class="row mb-1">
-  <div class="col-md-12">
+
+</div>
+<div class="container mt-4">
+<div class="row mt-2 mb-1">
+  <div class="col-md-3">
     <%= search_form_for @q, :class => "collapse", :id => "dishes_filters" do |f| %>
       <p class="lead">Narrow results:</p>
 
-        <div class="form-group">
+  <div class="form-group">
     <%= f.label :name_cont, "Name contains" %>
     <%= f.text_field :name_cont, :class => "form-control", :placeholder => "Name contains" %>
   </div>
@@ -77,39 +76,61 @@
 
       <a href="/dishes" class="btn btn-secondary btn-block mb-1">Clear filters</a>
     <% end %>
-    <a class="btn btn-secondary btn-block mb-1" data-toggle="collapse" href="#dishes_filters">
+    <a class="btn btn-secondary btn-block mb-1 collapsed" data-toggle="collapse" href="#dishes_filters" aria-expanded="false">
       Show Filters
     </a>
+    
   </div>
 </div>
 
-<div class="row">
-  <div class="col-md-12">
-    <table class="table table-striped table-hover">
+  <div class="col-md-6">
+    <div class="card">
+      <table class="table table-striped table-hover">
       <tr>
-        <th>Name</th>
-        <th>Cuisine</th>
-        <th>Actions</th>
+        <th>The very best...</th>
+        <th>is at...</th>
+        <th></th>
       </tr>
 
       <% @dishes.each do |dish| %>
       <tr>
-        <td><%= dish.name %></td>
+        <td><a href="/dishes/<%=dish.id %>"><%= dish.name %></a></td>
         <td>
+          <form action="/create_bookmark" class="form-inline" method="post">
+
+                <input type="hidden" name="dish_id" value=<%=dish.id%>>
+                <input type="hidden" name="user_id" value=<%=current_user.id %>>
+
+                <label for="venue_id" class="control-label sr-only">
+                  Venue
+                </label>
+
+        
+            <%= select_tag("venue_id", options_from_collection_for_select(Venue.all, :id, :name, @dishes.try(:venue_id)), :class => "form-control") %>
+
+
+                <button class="btn btn-primary btn-sm">
+                  <i class="fa fa-heart"></i>
+                </button>
+              </form>
+
+          </td>
+        <td class="text-right">
+        <span class="badge badge-primary">
           <% if dish.cuisine.present? %>
-            <a href="/cuisines/<%= dish.cuisine.id %>">
               <%= dish.cuisine.name %>
             </a>
           <% end %>
-        </td>
-        <td>
-          <a href="/dishes/<%= dish.id %>" class="btn btn-primary">Show</a>
-          <a href="/dishes/<%= dish.id %>/edit" class="btn btn-warning">Edit</a>
-          <a href="/delete_dish/<%= dish.id %>" class="btn btn-danger" rel="nofollow">Delete</a>
+        </span>
         </td>
       </tr>
       <% end %>
     </table>
+    </div>
+      <div class="col-md-3">
+        <a href="/dishes/new" class="btn btn-lg btn-success">New Dish</a>
+      </div>
+</div>
     <%= paginate @dishes, theme: 'twitter-bootstrap-4' %>
   </div>
 </div>
