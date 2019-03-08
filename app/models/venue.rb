@@ -22,6 +22,9 @@ class Venue < ApplicationRecord
 
   belongs_to :neighborhood,
              :counter_cache => true
+             
+  belongs_to :dish,
+             :counter_cache => true            
 
   has_many   :bookmarks,
              :dependent => :destroy
