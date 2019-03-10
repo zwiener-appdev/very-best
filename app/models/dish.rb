@@ -4,7 +4,7 @@ class Dish < ApplicationRecord
   has_many   :bookmarks,
              :dependent => :destroy
   
-
+             
   belongs_to :cuisine,
              :counter_cache => true
 
