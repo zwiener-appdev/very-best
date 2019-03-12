@@ -33,11 +33,12 @@
           <li class="list-group-item list-group-item-success">
             Dishes you loved here
           </li>
+          <% for item in @my_likes_here %>
           <li class="list-group-item">
-            <% for item in @my_likes_here %>
             <a href="/dishes/item.dish_id"><%=Dish.find(item.dish_id).name%></a>
-            <%end%>
+            <small class="float-right text-muted"><%=time_ago_in_words(item.created_at)%> ago</small>
           </li>
+          <%end%>
           <li class="list-group-item">
             <form action="/create_bookmark" class="form-inline float-left" method="post">
               <div class="form-group mr-sm-1">
