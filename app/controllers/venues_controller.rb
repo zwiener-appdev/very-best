@@ -1,5 +1,13 @@
-require 'open-uri'
 class VenuesController < ApplicationController
+  
+  for v in Venue.all
+    if v.address_latitude == nil
+      v.geocode_address
+      v.save
+    end
+  end
+    
+    
   def index
     @q = Venue.ransack(params.fetch("q", nil))
     @venues = @q.result(:distinct => true).includes(:bookmarks, :neighborhood, :fans, :specialties).page(params.fetch("page", nil)).per(10)
@@ -19,16 +27,6 @@ class VenuesController < ApplicationController
     @bookmark = Bookmark.new
     @venue = Venue.find(params.fetch("id"))
     @joint = []
-    
-      url="https://maps.googleapis.com/maps/api/geocode/json?address="+@venue.address+"&key=AIzaSyBr-0XDfztIIUGyPRfa1D5KfPvURvAk2e4"
-      parsed_data = JSON.parse(open(url).read)
-  
-      @venue.address_latitude = parsed_data.dig("results", 0, "geometry", "location", "lat")
-  
-      @venue.address_longitude = parsed_data.dig("results", 0, "geometry", "location", "lng")
-      
-      @venue.save
-    
     
     for bookmark in Bookmark.all
       if bookmark.venue_id == @venue.id
