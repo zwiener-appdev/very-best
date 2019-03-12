@@ -26,14 +26,21 @@ class VenuesController < ApplicationController
     
     @bookmark = Bookmark.new
     @venue = Venue.find(params.fetch("id"))
-    @joint = []
+   
+    @total_likes_here = []
+    @my_likes_here = []
     
     for bookmark in Bookmark.all
       if bookmark.venue_id == @venue.id
-        @joint.append(bookmark)
+        @total_likes_here.append(bookmark)
       end
     end
-
+    
+    for like in @total_likes_here
+      if like.user_id = current_user.id
+      end
+    end
+    
     render("venues_templates/show.html.erb")
   end
 
