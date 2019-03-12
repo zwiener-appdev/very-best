@@ -34,7 +34,7 @@
             Dishes you loved here
           </li>
           <li class="list-group-item">
-            <% for item in @joint %>
+            <% for item in @my_likes_here %>
             <a href="/dishes/item.dish_id"><%=Dish.find(item.dish_id).name%></a>
             <%end%>
           </li>
@@ -48,6 +48,8 @@
                   <%end%>
                 </select>
               </div>
+              <input id="venue_id" name="venue_id" type="hidden" value="<%=@venue.id%>">
+              <input id="user_id" name="user_id" type="hidden" value="<%=current_user.id%>">
               <button class="btn btn-primary btn">
                 <i class="fa fa-heart"></i>
               </button>
@@ -57,6 +59,11 @@
         <li class="list-group-item list-group-item-success">
           Popular dishes here
         </li>
+        <% for like in @total_likes_here %>
+        <li class="list-group-item">
+          <%=Dish.find(like.dish_id).name%>
+        </li>
+        <%end%>
         </ul>
       </div>
     </div>

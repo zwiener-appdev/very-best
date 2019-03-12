@@ -1,8 +1,13 @@
 class DishesController < ApplicationController
   def index
+<<<<<<< HEAD
     @dishes_style=true
+=======
+    @dishes_style= true
+
+>>>>>>> e812e2a0fb895da48c32995bb20da5562e71f302
     @q = Dish.ransack(params.fetch("q", nil))
-    @dishes = @q.result(:distinct => true).includes(:cuisine, :bookmarks, :fans, :specialists).page(params.fetch("page", nil)).per(10)
+    @dishes = @q.result(:distinct => true).includes(:cuisine, :bookmarks, :fans, :specialists).page(params.fetch("page", nil)).all
     render("dishes_templates/index.html.erb")
   end
 

@@ -39,6 +39,7 @@ class VenuesController < ApplicationController
     
     for like in @total_likes_here
       if like.user_id = current_user.id
+        @my_likes_here.append(like)
       end
     end
     
