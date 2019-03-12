@@ -1,5 +1,6 @@
 class VenuesController < ApplicationController
   def index
+    @venue_styles
     @q = Venue.ransack(params.fetch("q", nil))
     @venues = @q.result(:distinct => true).includes(:bookmarks, :neighborhood, :fans, :specialties).page(params.fetch("page", nil)).per(10)
 
@@ -14,6 +15,7 @@ class VenuesController < ApplicationController
   end
 
   def show
+    @venue_styles
     @bookmark = Bookmark.new
     @venue = Venue.find(params.fetch("id"))
 
