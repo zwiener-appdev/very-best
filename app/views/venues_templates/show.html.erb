@@ -61,7 +61,7 @@
         </li>
         <% for like in @total_likes_here %>
         <li class="list-group-item">
-          <%=Dish.find(like.dish_id).name%>
+          <a href="/dishes/<%=like.dish_id%>"><%=Dish.find(like.dish_id).name%></a>
         </li>
         <%end%>
         </ul>
