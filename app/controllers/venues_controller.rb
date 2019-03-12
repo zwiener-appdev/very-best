@@ -16,6 +16,13 @@ class VenuesController < ApplicationController
   def show
     @bookmark = Bookmark.new
     @venue = Venue.find(params.fetch("id"))
+    @joint = []
+    
+    for bookmark in Bookmark.all
+      if bookmark.venue_id == @venue.id
+        @joint.append(bookmark)
+      end
+    end
 
     render("venues_templates/show.html.erb")
   end
