@@ -35,8 +35,17 @@
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
+          <%if !@dishes_style.blank?%>
+          <li class="nav-item"><a class="nav-link active" href="/dishes">Dishes</a></li>
+          <%else%>
           <li class="nav-item"><a class="nav-link" href="/dishes">Dishes</a></li>
+          <%end%>
+          
+          <%if !@venue_style.blank?%>
+          <li class="nav-item"><a class="nav-link active" href="/venues">Venues</a></li>
+          <%else%>
           <li class="nav-item"><a class="nav-link" href="/venues">Venues</a></li>
+          <%end%>
         </ul>
         <ul class="navbar-nav ml-auto">
           <% if current_user.present? %>
