@@ -1,21 +1,19 @@
 class DishesController < ApplicationController
   def index
-    @bookmark = Bookmark.new
+    @dishes_style= true
     @q = Dish.ransack(params.fetch("q", nil))
     @dishes = @q.result(:distinct => true).includes(:cuisine, :bookmarks, :fans, :specialists).page(params.fetch("page", nil)).per(10)
     render("dishes_templates/index.html.erb")
   end
 
   def show
+    @dishes_style= true
     @dish = Dish.find(params.fetch("id"))
     @bookmark = Bookmark.new
-    @place = Venue.order(:name)
     @book = Bookmark.where(:user_id => current_user.id, :dish_id => @dish.id)
+    @temp = []
     @book.each do |bookmark|
-    @all_venues = Venue.all.where.not(:id => bookmark.venue_id)
-    end
-    @all_venues.each do |venue|
-      @place = @place.where.not(:id => venue.id)
+      @temp.push(bookmark.venue)
     end
     render("dishes_templates/show.html.erb")
   end
