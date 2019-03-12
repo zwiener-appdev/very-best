@@ -1,7 +1,7 @@
 require 'open-uri'
 class VenuesController < ApplicationController
   def index
-    @venue_styles
+    @venue_style=true
     @q = Venue.ransack(params.fetch("q", nil))
     @venues = @q.result(:distinct => true).includes(:bookmarks, :neighborhood, :fans, :specialties).page(params.fetch("page", nil)).per(10)
 
@@ -16,6 +16,7 @@ class VenuesController < ApplicationController
   end
 
   def show
+    @venue_style=true
     @bookmark = Bookmark.new
     @venue = Venue.find(params.fetch("id"))
     @joint = []
