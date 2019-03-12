@@ -11,11 +11,10 @@ class DishesController < ApplicationController
     @bookmark = Bookmark.new
     @place = Venue.order(:name)
     @book = Bookmark.where(:user_id => current_user.id, :dish_id => @dish.id)
-    @all_venue = Venue.all
-    @book.each do |bm|
-      @all_venue = @all_venue.where.not(:id => bm.venue_id)
+    @book.each do |bookmark|
+    @all_venues = Venue.all.where.not(:id => bookmark.venue_id)
     end
-    @all_venue.each do |venue|
+    @all_venues.each do |venue|
       @place = @place.where.not(:id => venue.id)
     end
     render("dishes_templates/show.html.erb")

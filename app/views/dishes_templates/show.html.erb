@@ -1,17 +1,20 @@
 <div class = "row mt-2 justify content-md-center">
-  <div class = "col-md-3"></div>
+  <div class = "col-md-3">
+  </div>
+  
   <div class = "col-md-6">
     <div class = "card">
       <div class = "card-header">
         <h4 class = "card-title">
           You loved the <%= @dish.name %> at...
-          <% if @dish.cuisine.present? %>
-            <div class="badge badge-primary float-right">
-              <%= @dish.cuisine.name %>
-            </div>
-          <% end %>
+            <% if @dish.cuisine.present? %>
+              <div class="badge badge-primary float-right">
+                <%= @dish.cuisine.name %>
+              </div>
+            <% end %>
         </h4>
       </div>
+      
       <li class ="list-group-item">
         <form method = "post" action="/create_bookmark" class="form-inline float-left">
           <input type = "hidden" name="dish_id" value=<%= @dish.id %>>
@@ -27,15 +30,18 @@
           </div>
         </form>
       </li>
+      
       <% @place.each do |venue| %>
         <li class="list-group-item">
+          
           <p>
           <a href="/venues/<%= venue.id %>">
             <%= venue.name%>
           </a>
+          
           <small class="float-right text-muted">
-            about <%=time_ago_in_words(Bookmark.where(:dish_id => @dish.id, :venue_id => venue.id, user_id: current_user.id).first.created_at)%> ago
-            <a href="/bookmarks/<%=Bookmark.where(:dish_id => @dish.id, :venue_id => venue.id, :user_id => current_user.id).first.id%>/edit">
+            about <%=time_ago_in_words(Bookmark.where(:venue_id => venue.id, :dish_id => @dish.id, user_id: current_user.id).first.created_at)%> ago
+            <a href="/bookmarks/<%=Bookmark.where(:venue_id => venue.id, :dish_id => @dish.id, :user_id => current_user.id).first.id%>/edit">
               <i class = "fa fa-fw fa-edit"></i>
             </a>
             <a href="/delete_bookmark/<%=Bookmark.where(:dish_id => @dish.id, :venue_id => venue.id, :user_id => current_user.id).first.id%>">
@@ -43,9 +49,14 @@
             </a>
           </small>
           </p>
+          
         </li>
       <% end %>
     </div>
+      <div class="card-footer text-center">
+        <a href="/dishes" class="btn btn-block btn-secondary">
+          <i class="fa fa-chevron-left"></i>
+        </a>
+      </div>
   </div>
-  <div class = "col-md-3"></div>
 </div>
