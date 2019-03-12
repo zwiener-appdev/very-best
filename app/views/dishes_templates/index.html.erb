@@ -13,13 +13,14 @@
         </div>
 
         <div class="form-group">
-          <%= f.label :cuisine_name_cont, "Cuisine name contains" %>
+          <%= f.label :cuisine_name_cont, "Cuisine" %>
           <%Cuisine.all.each do |cuisine| %>
             <div for="cuisine_type">
               <label>
                 <input type="checkbox" name="q[cuisine_id_eq_any][]" id="q_cuisine_id_eq_any_" value="<%=cuisine.id%>">
+                <%=cuisine.name%>
               </label>
-              <%=cuisine.name%>
+              
             </div>
           <%end%>
         </div>
@@ -43,31 +44,32 @@
             <th></th>
           </tr>
 
-        <% @dishes.each do |food| %>
+        <% @dishes.each do |dish| %>
           <tr>
-            <td><a href="/dishes/<%=food.id %>"><%= food.name %></a></td>
+            <td><a href="/dishes/<%=dish.id %>"><%= dish.name %></a></td>
             <td>
-                
+              <% if Bookmark.where(:dish_id => dish.id, :user_id => current_user.id).count > 0 %>
+                <a href="/venues/<%= dish.cuisine.id %>" >
+                  <%= Venue.where(:id => Bookmark.where(:dish_id => dish.id, :user_id => current_user.id).first.venue_id).first.name %>
+                </a>
+              <% else %>
                 <form action="/create_bookmark" class="form-inline" method="post" id="bookmark_form">
-                  <input type="hidden" name="dish_id" value=<%=food.id%>>
+                  <input type="hidden" name="dish_id" value=<%=dish.id%>>
                   <input type="hidden" name="user_id" value=<%=current_user.id %>>
-                  <select name="venue_id" form="bookmark_form">
-                    <%Venue.all.each do |place|%>
-                    <option value="<%=place.id%>" name="venue_id"><%=place.name%></option>
-                    <%end%>
-                    <option value="" selected disabled hidden>Choose a venue...</option>
-                  </select>
+                  <%= select_tag("venue_id", options_from_collection_for_select(Venue.all, :id, :name), :include_blank => "Choose a venue...", :class => "form-control form-control-sm mr-sm-1") %>
                   
                   <button class="btn btn-primary btn-sm">
                     <i class="fa fa-heart"></i>
                   </button>
-                </form>
+              <%end%>  
+              
             </td>
             <td class="text-right">
               <span class="badge badge-primary">
-                <% if food.cuisine.present? %>
-                <%= food.cuisine.name %>
+                <% if dish.cuisine.present? %>
+                <%= dish.cuisine.name %>
                 <% end %>
+                </form>
               </span>
             </td>
           </tr>
