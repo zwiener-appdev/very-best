@@ -11,6 +11,7 @@ class User < ApplicationRecord
              :source => :dish
 
   has_many   :bookmarked_venues,
+             -> { distinct },
              :through => :bookmarks,
              :source => :venue
 

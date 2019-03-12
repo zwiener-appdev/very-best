@@ -65,19 +65,15 @@
         <div class="card-body">
           
           <ul class="list-group list-group-flush">
-            <% l = []
-              for bookmark in Bookmark.all
-                  if bookmark.user_id == current_user.id
-                    l.append(bookmark)
-                    end
-              end%>
-              <% for i in l.uniq%>
-            <li class="list-group-item" value="<% i.venue_id %>">
-              <a href="venues/<%=i.venue_id%>"><%= Venue.find(i.venue_id).name %></a>
-              <small class="text-muted float-right"><%=Neighborhood.find(Venue.find(i.venue_id).neighborhood_id).name%>, <%=Neighborhood.find(Venue.find(i.venue_id).neighborhood_id).city%></small>
+              <% for i in current_user.bookmarked_venues%>
+            <li class="list-group-item" value="<% i.id%>">
+              <a href="venues/<%=i.id%>"><%= i.name %></a>
+              <small class="text-muted float-right"><%=Neighborhood.find(i.neighborhood_id).name%>, <%=Neighborhood.find(i.neighborhood_id).city%></small>
               </li>
                 <%end%>
           </ul>
+          
+          
           
         </div>
       </div>
