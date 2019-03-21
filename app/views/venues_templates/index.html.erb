@@ -70,10 +70,10 @@
         <div class="card-body">
           
           <ul class="list-group list-group-flush">
-              <% for i in current_user.bookmarked_venues%>
-            <li class="list-group-item" value="<% i.id%>">
-              <a href="venues/<%=i.id%>"><%= i.name %></a>
-              <small class="text-muted float-right"><%=Neighborhood.find(i.neighborhood_id).name%>, <%=Neighborhood.find(i.neighborhood_id).city%></small>
+              <% @venues.each do |venue|%>
+            <li class="list-group-item" value="<% venue.id%>">
+              <a href="venues/<%=venue.id%>"><%= venue.name %></a>
+              <small class="text-muted float-right"><%=Neighborhood.find(venue.neighborhood_id).name%>, <%=Neighborhood.find(venue.neighborhood_id).city%></small>
               </li>
                 <%end%>
           </ul>
