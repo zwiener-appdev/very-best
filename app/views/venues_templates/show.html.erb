@@ -35,7 +35,7 @@
           </li>
           <% for item in @my_likes_here %>
           <li class="list-group-item">
-            <a href="/dishes/item.dish_id"><%=Dish.find(item.dish_id).name%></a>
+            <a href="/dishes/<%=item.dish_id%>"><%=Dish.find(item.dish_id).name%></a>
             <small class="float-right text-muted"><%=time_ago_in_words(item.created_at)%> ago</small>
           </li>
           <%end%>
